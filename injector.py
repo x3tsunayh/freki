@@ -19,8 +19,7 @@ def get_form_data(form, payload):
     for inp in form('input'):
         if 'name' in inp.attrs: #do we change all hidden fields as well or only just text
             if 'type' not in inp.attrs or inp['type'] == 'text':
-                data[inp['name']] = payload
-                
+                data[inp['name']] = payload 
     return data
 
 def inject(url, payload, keyword, cookies):

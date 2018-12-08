@@ -78,10 +78,6 @@ def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
     
     
 def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 1000):
-    if input_keyword == None:
-        input_keyword = ''
-    if input_cookies == None:
-        input_cookies = ''
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
