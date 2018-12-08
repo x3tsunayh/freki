@@ -1,45 +1,10 @@
 from requests import session
 from requests import get
 from requests.exceptions import RequestException
-from contextlib import closing
 from bs4 import BeautifulSoup
 import checker
+import cookie_cutter
 
-
-def cookies_get(url, cookies):
-    """
-    Attempts to get the content at `url` by making an HTTP GET request.
-    If the content-type of response is some kind of HTML/XML, return the
-    text content, otherwise return None.
-    """
-    try:
-        with closing(get(url, stream = True, cookies = cookies)) as resp:
-            if is_good_response(resp):
-                return resp.content
-            else:
-                return None
-
-    except RequestException as e:
-        log_error('Error during requests to {0} : {1}'.format(url, str(e)))
-        return None
-
-
-def is_good_response(resp):
-    """
-    Returns True if the response seems to be HTML, False otherwise.
-    """
-    content_type = resp.headers['Content-Type'].lower()
-    return (resp.status_code == 200 
-            and content_type is not None 
-            and content_type.find('html') > -1)
-
-
-def log_error(e):
-    """
-    Prints errors. 
-    """
-    print(e)
-	
 def sanitize_url(url, path):
     if 'http' in path or 'www.' in path:
         return path
@@ -62,7 +27,7 @@ def sanitize_url(url, path):
 
 
 def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
-    response = cookies_get(url, cookies)
+    response = cookie_cutter.cookies_get(url, cookies)
     if response is not None:
         html = BeautifulSoup(response, 'html.parser')
         if checker.check(html, payload):
@@ -77,24 +42,12 @@ def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
 
     
     
-def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 2):
+def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 1000):
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
     nresult = input_nres
-    
-    cookies = {}
-    cookie_str = input_cookies
-    if cookie_str[-1] != ';':
-        cookie_str += ';'
-    while cookie_str:
-        equal_idx = cookie_str.find('=')
-        key = cookie_str[:equal_idx]
-        cookie_str = cookie_str[equal_idx+1:]
-        scoln_idx = cookie_str.find(';')
-        cookies[key] = cookie_str[:scoln_idx]
-        cookie_str = cookie_str[scoln_idx+1:]  
-    print(cookies)
+    cookies = cookie_cutter.make_cookie(input_cookies)
     
     href_set = set()
     href_vuln = set()
@@ -108,9 +61,8 @@ def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 2
     
     if not href_vuln:
         print("No persistent XSS found on crawled sites.")
+        print(href_set)
     else:
         print("Persistent XSS found on these sites:")
         for i in href_vuln:
             print(i)
-
-#crawl('https://stackoverflow.com/questions/7253803/how-to-get-everything-after-last-slash-in-a-url', 'rstrip', input_keyword = 'python', input_cookies = '')
