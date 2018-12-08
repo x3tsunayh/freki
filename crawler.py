@@ -39,6 +39,26 @@ def log_error(e):
     Prints errors. 
     """
     print(e)
+	
+def sanitize_url(url, path):
+    if 'http' in path or 'www' in path:
+        return path
+    
+    if path[0] == '/':
+        if url[-1] == '/':
+            return url + path[1:]
+        else:
+            return url + path
+    elif path[0:1] == './':
+        if url[-1] == '/':
+            return url + path[2:]
+        else:
+            return url + path[1:]
+    else:
+        if url[-1] == '/':
+            return url + path
+        else:
+            return url + '/' + path
 
 
 def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
@@ -50,8 +70,7 @@ def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
         for i in html.find_all('a', href = True):
             href = i['href']
             if href:
-                if href[0] == '/':
-                    href = url + href
+                href = sanitize_url(url, href)
                 if href not in href_set and keyword in href:
                     href_set.add(href)
                     href_lst.append(href)
@@ -86,4 +105,4 @@ def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 1
         for i in href_vuln:
             print(i)
 
-#crawl('https://stackoverflow.com/questions/7253803/how-to-get-everything-after-last-slash-in-a-url', 'payload', input_keyword = 'owasp')
+#crawl('https://stackoverflow.com/questions/7253803/how-to-get-everything-after-last-slash-in-a-url', 'rstrip', input_keyword = 'python', input_cookies = '')
