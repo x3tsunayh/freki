@@ -3,6 +3,7 @@ import crawler
 import injector
 
 def main(args):
+    # backup copy..
     #payload = "<script>alert(1);</script>" TODO: Add more scripts to test with
     if args['payload'] != '':
         payload = args['payload']    
