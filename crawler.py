@@ -6,14 +6,14 @@ from bs4 import BeautifulSoup
 import checker
 
 
-def simple_get(url):
+def cookies_get(url, cookies):
     """
     Attempts to get the content at `url` by making an HTTP GET request.
     If the content-type of response is some kind of HTML/XML, return the
     text content, otherwise return None.
     """
     try:
-        with closing(get(url, stream=True)) as resp:
+        with closing(get(url, stream = True, cookies = cookies)) as resp:
             if is_good_response(resp):
                 return resp.content
             else:
@@ -41,11 +41,11 @@ def log_error(e):
     print(e)
 
 
-def recursive_crawl(url):
-    response = simple_get(url)
+def recursive_crawl(url, cookies, keyword):
+    response = cookies_get(url, cookies)
     if response is not None:
         html = BeautifulSoup(response, 'html.parser')
-        print(html.prettify())
+        
         if checker(html, payload):
             href_vuln.add(url)
                
@@ -54,19 +54,18 @@ def recursive_crawl(url):
             if href:
                 if href[0] == '/':
                     href = url + href
-                if href not in href_set:
+                if href not in href_set and keyword in href:
                     href_set.add(href)
                     href_lst.append(href)
 
     
     
-def crawl(input_url, input_payload, input_keyword = '', input_nres = 1000, input_user = '', input_pass = ''):
+def crawl(input_url, input_payload, input_keyword = '', input_nres = 1000, input_cookies = dict(cookies = 'cookies')):
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
     nresult = input_nres
-    username = input_user
-    password = input_pass
+    cookies = input_cookies
     
     href_set = set()
     href_vuln = set()
@@ -75,9 +74,14 @@ def crawl(input_url, input_payload, input_keyword = '', input_nres = 1000, input
     href_lst.append(initial_url)
     
     while (href_lst and len(href_set) < nresult):
-        recursive_crawl(href_lst[0])
+        recursive_crawl(href_lst[0], cookies, keyword)
         del href_lst[0]
     
-    return list(href_vuln)
+    if not href_vuln:
+        print("No persistent XSS found on crawled sites.")
+    
+    print("Persistent XSS found on these sites:")
+    for i in href_vuln:
+        print(i)
 
-##main('https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project', 'payload', input_keyword = 'owasp')
+#crawl('https://stackoverflow.com/questions/7253803/how-to-get-everything-after-last-slash-in-a-url', 'payload', input_keyword = 'owasp')
