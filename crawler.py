@@ -53,6 +53,9 @@ def sanitize_url(url, path):
         return url + path[1:]
     elif path[0:3] == '../':
         last_idx = url.rfind('/')
+        isFile = url.rfind('.') > last_idx
+        if isFile:
+            last_idx = url[:last_idx].rfind('/')
         return sanitize_url(url[:last_idx], path[3:])
     else:
         return url + '/' + path
