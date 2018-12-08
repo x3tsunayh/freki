@@ -8,10 +8,10 @@ def make_cookie(cookie_str):
         cookie_str += ';'
     while cookie_str:
         equal_idx = cookie_str.find('=')
-        key = cookie_str[:equal_idx]
+        key = cookie_str[:equal_idx].strip()
         cookie_str = cookie_str[equal_idx+1:]
         scoln_idx = cookie_str.find(';')
-        cookies[key] = cookie_str[:scoln_idx]
+        cookies[key] = cookie_str[:scoln_idx].strip()
         cookie_str = cookie_str[scoln_idx+1:]
     return cookies
 
@@ -29,7 +29,8 @@ def cookies_get(url, cookies):
                 return None
 
     except RequestException as e:
-        log_error('Error during requests to {0} : {1}'.format(url, str(e)))
+		#Uncomment the below line to view log errors.
+        #log_error('Error during requests to {0} : {1}'.format(url, str(e)))
         return None
 
 def log_error(e):
