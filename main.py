@@ -51,7 +51,7 @@ if __name__ == "__main__":
     while running:
         print('''
 Welcome to freki, the Persistent XSS Detector.
-P.S. Auto-injection is kind of buggy right now, so we would prefer if you manually injected your script into the form beforehand :X
+P.S. Auto-injection is kind of buggy right now, so we would prefer if you manually injected your script into the targeted form beforehand :X
         
         ''')
         url = ''

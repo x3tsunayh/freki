@@ -3,6 +3,7 @@ import urllib.parse
 from bs4 import BeautifulSoup
 import crawler
 import cookie_cutter
+from spinner import Spinner
 
 def make_soup(url, cookies_str):
     cookies = cookie_cutter.make_cookie(cookies_str)
@@ -34,6 +35,9 @@ def get_form_data(form, payload):
     return data
 
 def inject(url, payload, keyword, cookies):
+    spin = Spinner()
+    print("Attempting to inject payload...")
+    spin.start()
     soup = make_soup(url, cookies)
     form = get_form(soup)
     if form != None:
@@ -41,7 +45,13 @@ def inject(url, payload, keyword, cookies):
         if action != None:
             data = get_form_data(form, payload)
             r = requests.post(action, data=data)
-            crawler.crawl(url, payload, keyword, cookies)
+            spin.stop()
+            print("Payload injected, POST request sent.")
         else:
-            print("No action parameter found, unable to automatically inject, please try without -i flag")
+            spin.stop()
+            print("No action parameter found, unable to automatically inject, attempting to crawl for payload now...")
+    else:
+        spin.stop()
+        print("No forms found!")
+    crawler.crawl(url, payload, keyword, cookies)
     
