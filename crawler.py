@@ -80,8 +80,9 @@ def crawl(input_url, input_payload, input_keyword = '', input_nres = 1000, input
     if not href_vuln:
         print("No persistent XSS found on crawled sites.")
     
-    print("Persistent XSS found on these sites:")
-    for i in href_vuln:
-        print(i)
+	else:
+		print("Persistent XSS found on these sites:")
+		for i in href_vuln:
+			print(i)
 
 #crawl('https://stackoverflow.com/questions/7253803/how-to-get-everything-after-last-slash-in-a-url', 'payload', input_keyword = 'owasp')
