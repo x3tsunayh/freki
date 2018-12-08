@@ -60,7 +60,7 @@ def recursive_crawl(url):
 
     
     
-def main(input_url, input_payload, input_keyword = '', input_nres = 1000, input_user = '', input_pass = ''):
+def crawl(input_url, input_payload, input_keyword = '', input_nres = 1000, input_user = '', input_pass = ''):
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
