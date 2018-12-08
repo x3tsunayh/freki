@@ -1,6 +1,6 @@
 # Freki - Persistent XSS Detector
 
-<img style=display:inline-block src="https://raw.githubusercontent.com/chuayupeng/freki/master/freki.jpg" alt="drawing" height="200" width="200"/>
+![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/freki.jpg)
 
 Freki is a penetration testing tool that enumerates all linked site pages to automate the detection of persistent/stored XSS vulnerabilities for a known (either default or user-crafted) XSS injection.
 
@@ -34,13 +34,33 @@ cd freki
 pip install -r requirements.txt
 ```
 
-## Usage (WIP)
+## Usage
 
 1. Run the program with this command
 
 ```
 python main.py
 ```
+
+2. You will first be prompted to enter the site URL to test for Persistent XSS. An example is:
+
+```
+http://192.168.18.133/dvwa
+```
+
+3. Enter the payload to be used. An example is:
+
+```
+<script>alert('freki')</script>
+```
+
+4. If the site requires cookie authentication, provide them in the form:
+
+```
+'KeyOne=ValueOne;KeyTwo=ValueTwo'
+```
+
+5. Finally, indicate if you would like to auto-inject the payload before searching for its presence.
 
 ## Built With
 
@@ -54,7 +74,7 @@ python main.py
 
 ## Contributing (WIP)
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read our [CONTRIBUTING.md](https://github.com/chuayupeng/freki/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
