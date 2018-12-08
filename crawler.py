@@ -77,12 +77,24 @@ def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
 
     
     
-def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 1000):
+def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 2):
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
     nresult = input_nres
-    cookies = input_cookies
+    
+    cookies = {}
+    cookie_str = input_cookies
+    if cookie_str[-1] != ';':
+        cookie_str += ';'
+    while cookie_str:
+        equal_idx = cookie_str.find('=')
+        key = cookie_str[:equal_idx]
+        cookie_str = cookie_str[equal_idx+1:]
+        scoln_idx = cookie_str.find(';')
+        cookies[key] = cookie_str[:scoln_idx]
+        cookie_str = cookie_str[scoln_idx+1:]  
+    print(cookies)
     
     href_set = set()
     href_vuln = set()
