@@ -8,36 +8,39 @@ Freki is a penetration testing tool that enumerates all linked site pages to aut
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites (WIP)
+### Prerequisites
 
-What things you need to install the software and how to install them
+* [Python 3.6.6 or above](https://www.python.org/)
+* [pip 18.1 or above](https://pypi.org/project/pip/)
 
-```
-Give examples
-```
-
-### Installing (WIP)
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+If your OS does not have pip installed, use the following command:
 
 ```
-Give the example
+sudo easy-install pip
 ```
 
-And repeat
+### Installing
+
+1. Clone the directory
+2. Enter the directory by typing in this command
 
 ```
-until finished
+cd freki
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+1. Install prerequisite libraries with pip:
 
+```
+pip install -r requirements.txt
+```
 
-## Deployment (WIP)
+## Usage (WIP)
 
-Add additional notes about how to deploy this on a live system
+1. Run the program with this command
+
+```
+python main.py
+```
 
 ## Built With
 
