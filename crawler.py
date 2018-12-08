@@ -41,7 +41,7 @@ def log_error(e):
     print(e)
 
 
-def iter_crawl(url, cookies, keyword, payload, href_vuln):
+def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
     response = cookies_get(url, cookies)
     if response is not None:
         html = BeautifulSoup(response, 'html.parser')
@@ -58,7 +58,11 @@ def iter_crawl(url, cookies, keyword, payload, href_vuln):
 
     
     
-def crawl(input_url, input_payload, input_keyword = '', input_cookies = '', input_nres = 1000):
+def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 1000):
+    if input_keyword == None:
+        input_keyword = ''
+    if input_cookies == None:
+        input_cookies = ''
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
@@ -72,7 +76,7 @@ def crawl(input_url, input_payload, input_keyword = '', input_cookies = '', inpu
     href_lst.append(initial_url)
     
     while (href_lst and len(href_set) < nresult):
-        iter_crawl(href_lst[0], cookies, keyword, payload, href_vuln)
+        iter_crawl(href_lst[0], cookies, keyword, payload, href_vuln, href_set, href_lst)
         del href_lst[0]
     
     if not href_vuln:
