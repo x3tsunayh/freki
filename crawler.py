@@ -41,14 +41,12 @@ def log_error(e):
     print(e)
 
 
-def recursive_crawl(url, cookies, keyword):
+def iter_crawl(url, cookies, keyword, payload, href_vuln):
     response = cookies_get(url, cookies)
     if response is not None:
         html = BeautifulSoup(response, 'html.parser')
-        
-        if checker(html, payload):
+        if checker.check(html, payload):
             href_vuln.add(url)
-               
         for i in html.find_all('a', href = True):
             href = i['href']
             if href:
@@ -60,7 +58,7 @@ def recursive_crawl(url, cookies, keyword):
 
     
     
-def crawl(input_url, input_payload, input_keyword = '', input_nres = 1000, input_cookies = dict(cookies = 'cookies')):
+def crawl(input_url, input_payload, input_keyword = '', input_cookies = '', input_nres = 1000):
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
@@ -74,15 +72,14 @@ def crawl(input_url, input_payload, input_keyword = '', input_nres = 1000, input
     href_lst.append(initial_url)
     
     while (href_lst and len(href_set) < nresult):
-        recursive_crawl(href_lst[0], cookies, keyword)
+        iter_crawl(href_lst[0], cookies, keyword, payload, href_vuln)
         del href_lst[0]
     
     if not href_vuln:
         print("No persistent XSS found on crawled sites.")
-    
-	else:
-		print("Persistent XSS found on these sites:")
-		for i in href_vuln:
-			print(i)
+    else:
+        print("Persistent XSS found on these sites:")
+        for i in href_vuln:
+            print(i)
 
 #crawl('https://stackoverflow.com/questions/7253803/how-to-get-everything-after-last-slash-in-a-url', 'payload', input_keyword = 'owasp')

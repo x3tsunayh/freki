@@ -3,7 +3,7 @@
 #from requests import get
 
 #TODO: optimise
-def checker(soup, payload):
+def check(soup, payload):
     arrOfLines = str(soup).splitlines()
     for line in arrOfLines:
         if payload in line:

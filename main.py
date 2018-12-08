@@ -1,8 +1,8 @@
 import argparse
-#import crawler
+import crawler
 
 def main(args):
-    print("TODO")
+    crawler.crawl(args.url, args.payload, args.keyword, args.cookie)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
