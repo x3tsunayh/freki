@@ -41,24 +41,21 @@ def log_error(e):
     print(e)
 	
 def sanitize_url(url, path):
-    if 'http' in path or 'www' in path:
+    if 'http' in path or 'www.' in path:
         return path
     
-    if path[0] == '/':
-        if url[-1] == '/':
-            return url + path[1:]
-        else:
-            return url + path
-    elif path[0:1] == './':
-        if url[-1] == '/':
-            return url + path[2:]
-        else:
-            return url + path[1:]
+    if url[-1] == '/':
+        url = url[:-1]
+    
+    if path[0:1] == '/':
+        return url + path
+    elif path[0:2] == './':
+        return url + path[1:]
+    elif path[0:3] == '../':
+        last_idx = url.rfind('/')
+        return sanitize_url(url[:last_idx], path[3:])
     else:
-        if url[-1] == '/':
-            return url + path
-        else:
-            return url + '/' + path
+        return url + '/' + path
 
 
 def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
