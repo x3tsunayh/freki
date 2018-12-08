@@ -1,6 +1,6 @@
 # Freki - Persistent XSS Detector
 
-<img style=display:inline-block src="https://raw.githubusercontent.com/chuayupeng/freki/master/freki.jpg" alt="drawing" width="200"/>
+<img style=display:inline-block src="https://raw.githubusercontent.com/chuayupeng/freki/master/freki.jpg" alt="drawing" height="200" width="200"/>
 
 Freki is a penetration testing tool that enumerates all linked site pages to automate the detection of persistent/stored XSS vulnerabilities for a known (either default or user-crafted) XSS injection.
 

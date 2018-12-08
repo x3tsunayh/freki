@@ -4,6 +4,7 @@ from requests.exceptions import RequestException
 from bs4 import BeautifulSoup
 import checker
 import cookie_cutter
+from spinner import Spinner
 
 def sanitize_url(url, path):
     if 'http' in path or 'www.' in path:
@@ -43,6 +44,9 @@ def iter_crawl(url, cookies, keyword, payload, href_vuln, href_set, href_lst):
     
     
 def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 1000):
+    spin = Spinner()
+    print("Crawling site to detect payload...")
+    spin.start()
     initial_url = input_url
     payload = input_payload
     keyword = input_keyword
@@ -58,7 +62,8 @@ def crawl(input_url, input_payload, input_keyword, input_cookies, input_nres = 1
     while (href_lst and len(href_set) < nresult):
         iter_crawl(href_lst[0], cookies, keyword, payload, href_vuln, href_set, href_lst)
         del href_lst[0]
-    
+
+    spin.stop()
     if not href_vuln:
         print("No persistent XSS found on crawled sites.")
         print(href_set)
