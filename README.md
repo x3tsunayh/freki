@@ -72,7 +72,7 @@ http://192.168.18.133/dvwa
     * [Requests](http://docs.python-requests.org/en/master/) - To send HTTP requests.
 
 
-## Contributing (WIP)
+## Contributing
 
 Please read our [CONTRIBUTING.md](https://github.com/chuayupeng/freki/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
