@@ -1,8 +1,11 @@
-import requests, bs4, urllib.parse,re, crawler
+import requests
+import urllib.parse
+from bs4 import BeautifulSoup
+import crawler
 
 def make_soup(url):
     r = requests.get(url)
-    soup = bs4.BeautifulSoup(r.text, 'html.parser')
+    soup = BeautifulSoup(r.text, 'html.parser')
     return soup
 
 def get_form(soup):
