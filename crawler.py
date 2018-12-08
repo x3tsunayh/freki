@@ -3,6 +3,7 @@ from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
+import checker
 
 
 def simple_get(url):
@@ -45,10 +46,8 @@ def recursive_crawl(url):
     if response is not None:
         html = BeautifulSoup(response, 'html.parser')
         print(html.prettify())
-		"""
         if checker(html, payload):
-            ref_vuln.add(url)
-		"""
+            href_vuln.add(url)
                
         for i in html.find_all('a', href = True):
             href = i['href']
