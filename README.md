@@ -37,30 +37,30 @@ pip install -r requirements.txt
 ## Usage
 
 1. Run the program with this command
-
 ```
 python main.py
 ```
-
 2. You will first be prompted to enter the site URL to test for Persistent XSS. An example is:
-
 ```
 http://192.168.18.133/dvwa
 ```
-
 3. Enter the payload to be used. An example is:
-
 ```
 <script>alert('freki')</script>
 ```
-
 4. If the site requires cookie authentication, provide them in the form:
-
 ```
 'keyOne=valueOne;keyTwo=valueTwo'
 ```
-
 5. Finally, indicate if you would like to auto-inject the payload before searching for its presence.
+
+Example Usage:
+
+![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/frekiEg1.jpg)
+
+Test Payload found:
+
+![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/frekiEg2.jpg)
 
 ## Built With
 
