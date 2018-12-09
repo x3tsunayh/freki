@@ -1,6 +1,6 @@
 # Freki - Persistent XSS Detector
 
-![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/freki.jpg)
+![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/img/freki.jpg)
 
 Freki is a penetration testing tool that enumerates all linked site pages to automate the detection of persistent/stored XSS vulnerabilities for a known (either default or user-crafted) XSS injection.
 
@@ -56,11 +56,11 @@ http://192.168.18.133/dvwa
 
 Example Usage:
 
-![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/frekiEg1.jpg)
+![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/img/frekiEg1.jpg)
 
 Test Payload found:
 
-![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/frekiEg2.jpg)
+![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/img/frekiEg2.jpg)
 
 ## Built With
 
