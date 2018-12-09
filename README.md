@@ -57,7 +57,7 @@ http://192.168.18.133/dvwa
 4. If the site requires cookie authentication, provide them in the form:
 
 ```
-'KeyOne=ValueOne;KeyTwo=ValueTwo'
+'keyOne=valueOne;keyTwo=valueTwo'
 ```
 
 5. Finally, indicate if you would like to auto-inject the payload before searching for its presence.
