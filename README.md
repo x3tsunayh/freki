@@ -28,30 +28,51 @@ sudo easy-install pip
 cd freki
 ```
 
-1. Install prerequisite libraries with pip:
+3. Install prerequisite libraries with pip:
 
 ```
 pip install -r requirements.txt
 ```
 
+4. If you are on Linux OS, you can run setup.sh instead:
+
+```
+./setup.sh
+```
+
+This allows Linux OS users to access the program from anywhere on the system using:
+
+```
+freki
+```
+
 ## Usage
 
-1. Run the program with this command
+1. Run the program with this command:
 ```
-python main.py
+python freki.py
 ```
+
+If you ran setup.sh, you may run the program using this command:
+```
+freki
+```
+
 2. You will first be prompted to enter the site URL to test for Persistent XSS. An example is:
 ```
 http://192.168.18.133/dvwa
 ```
+
 3. Enter the payload to be used. An example is:
 ```
 <script>alert('freki')</script>
 ```
+
 4. If the site requires cookie authentication, provide them in the form:
 ```
 'keyOne=valueOne;keyTwo=valueTwo'
 ```
+
 5. Finally, indicate if you would like to auto-inject the payload before searching for its presence.
 
 Example Usage:
