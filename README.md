@@ -96,4 +96,4 @@ This project is licensed under the GNU GPL v3 - see the [LICENSE.md](LICENSE.md)
 
 * Hat tip to anyone whose code was used
 * Inspiration
-* etc
+* Logo created by Freepik
