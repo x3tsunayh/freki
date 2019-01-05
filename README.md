@@ -2,7 +2,9 @@
 
 ![Freki Pic](https://raw.githubusercontent.com/chuayupeng/freki/master/img/freki.jpg)
 
-Freki is a penetration testing tool that enumerates all linked site pages to automate the detection of persistent/stored XSS vulnerabilities for a known (either default or user-crafted) XSS injection.
+Cross-site Scripting is one of the many vulnerabilities that can be found on a website, even been listed under as OWASP top 10. As a penetration tester, one can establish the fact that this vulnerability exist by attempting to submit malicious code into the website. But in a large scale system, how does a penetration tester verify which web pages are affected?  
+
+Freki is a tool that scans all of the web pages, attempting to detect the presence of the malicious payload. This is achieved by leveraging on the capabilities of web crawlers written in Python. This allows the developer to scan through the website without manually sourcing through the webpage, thus achieving results much faster by automating such a tedious process.  
 
 ## Getting Started
 
